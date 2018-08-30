@@ -6,11 +6,15 @@
 // default constructor
 MainWindow::MainWindow() : QMainWindow() {
   createGraphicsView();
+  createStatusBar();
   createTopBar();
 
   // test stuff
   DiagramClass* dClass1 = new DiagramClass();
+  DiagramClass* dClass2 = new DiagramClass();
   scene->addItem(dClass1);
+  scene->addItem(dClass2);
+  dClass2->setPos(QPointF(200,200));
 }
 
 MainWindow::~MainWindow() {
@@ -40,12 +44,14 @@ void MainWindow::createTopBar() {
   // file new
   QAction* newAction = new QAction(tr("&New"));
   newAction->setShortcut(QKeySequence::New);
+  newAction->setStatusTip(tr("Create a new project"));
   fileMenu->addAction(newAction);
   connect(newAction, SIGNAL(triggered()), this, SLOT(slotNewFile()));
 
   // file export
   QAction* exportAction = new QAction(tr("E&xport"));
   exportAction->setShortcut(QKeySequence(tr("ctrl+e")));
+  exportAction->setStatusTip(tr("Export project to PDF"));
   fileMenu->addAction(exportAction);
   connect(exportAction, SIGNAL(triggered()), this, SLOT(slotExport()));
 
@@ -55,14 +61,20 @@ void MainWindow::createTopBar() {
   QIcon quitIcon(":/images/exit.png");
   QAction* closeAction = new QAction(quitIcon, tr("&Quit"), this);
   closeAction->setShortcut(QKeySequence::Quit);
+  closeAction->setStatusTip(tr("Exit the software"));
   fileMenu->addAction(closeAction);
   connect(closeAction, SIGNAL(triggered()), this, SLOT(close()));
 
   // about help
   QIcon aboutIcon(":/images/about.png");
   QAction* aboutAction = new QAction(aboutIcon, tr("&About"), this);
+  aboutAction->setStatusTip(tr("About the software"));
   helpMenu->addAction(aboutAction);
   connect(aboutAction, SIGNAL(triggered()), this, SLOT(slotAbout()));
+}
+
+void MainWindow::createStatusBar() {
+  statusBar()->showMessage(tr("Ready"));
 }
 
 void MainWindow::slotNewFile() {

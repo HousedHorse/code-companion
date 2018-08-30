@@ -56,7 +56,9 @@ SOURCES       = main.cc \
 		DiagramClass.cc \
 		DiagramClassSection.cc qrc_code-companion.cpp \
 		moc_MainWindow.cpp \
-		moc_DiagramScene.cpp
+		moc_DiagramScene.cpp \
+		moc_DiagramClass.cpp \
+		moc_DiagramClassSection.cpp
 OBJECTS       = main.o \
 		MainWindow.o \
 		DiagramScene.o \
@@ -64,7 +66,9 @@ OBJECTS       = main.o \
 		DiagramClassSection.o \
 		qrc_code-companion.o \
 		moc_MainWindow.o \
-		moc_DiagramScene.o
+		moc_DiagramScene.o \
+		moc_DiagramClass.o \
+		moc_DiagramClassSection.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -432,9 +436,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -Wall -W -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_MainWindow.cpp moc_DiagramScene.cpp
+compiler_moc_header_make_all: moc_MainWindow.cpp moc_DiagramScene.cpp moc_DiagramClass.cpp moc_DiagramClassSection.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_MainWindow.cpp moc_DiagramScene.cpp
+	-$(DEL_FILE) moc_MainWindow.cpp moc_DiagramScene.cpp moc_DiagramClass.cpp moc_DiagramClassSection.cpp
 moc_MainWindow.cpp: MainWindow.h \
 		moc_predefs.h \
 		/usr/bin/moc
@@ -444,6 +448,16 @@ moc_DiagramScene.cpp: DiagramScene.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/housedhorse/documents/projects/curr/code-companion -I/usr/include/qt -I/usr/include/qt/QtPrintSupport -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/8.1.1 -I/usr/include/c++/8.1.1/x86_64-pc-linux-gnu -I/usr/include/c++/8.1.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.1.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.1.1/include-fixed -I/usr/include DiagramScene.h -o moc_DiagramScene.cpp
+
+moc_DiagramClass.cpp: DiagramClass.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/housedhorse/documents/projects/curr/code-companion -I/usr/include/qt -I/usr/include/qt/QtPrintSupport -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/8.1.1 -I/usr/include/c++/8.1.1/x86_64-pc-linux-gnu -I/usr/include/c++/8.1.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.1.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.1.1/include-fixed -I/usr/include DiagramClass.h -o moc_DiagramClass.cpp
+
+moc_DiagramClassSection.cpp: DiagramClassSection.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/housedhorse/documents/projects/curr/code-companion -I/usr/include/qt -I/usr/include/qt/QtPrintSupport -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/8.1.1 -I/usr/include/c++/8.1.1/x86_64-pc-linux-gnu -I/usr/include/c++/8.1.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.1.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/8.1.1/include-fixed -I/usr/include DiagramClassSection.h -o moc_DiagramClassSection.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -472,7 +486,8 @@ MainWindow.o: MainWindow.cc MainWindow.h \
 DiagramScene.o: DiagramScene.cc DiagramScene.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DiagramScene.o DiagramScene.cc
 
-DiagramClass.o: DiagramClass.cc DiagramClass.h
+DiagramClass.o: DiagramClass.cc DiagramClass.h \
+		DiagramClassSection.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DiagramClass.o DiagramClass.cc
 
 DiagramClassSection.o: DiagramClassSection.cc DiagramClassSection.h
@@ -486,6 +501,12 @@ moc_MainWindow.o: moc_MainWindow.cpp
 
 moc_DiagramScene.o: moc_DiagramScene.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DiagramScene.o moc_DiagramScene.cpp
+
+moc_DiagramClass.o: moc_DiagramClass.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DiagramClass.o moc_DiagramClass.cpp
+
+moc_DiagramClassSection.o: moc_DiagramClassSection.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DiagramClassSection.o moc_DiagramClassSection.cpp
 
 ####### Install
 

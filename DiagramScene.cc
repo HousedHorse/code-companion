@@ -13,6 +13,7 @@ DiagramScene::~DiagramScene() {
 }
 
 void DiagramScene::exportToPDF(const QString& fileName) {
+  // set up the printer to export to PDF
   printer->setPageSize(QPrinter::A4);
   printer->setOrientation(QPrinter::Portrait);
   printer->setOutputFormat(QPrinter::PdfFormat);

@@ -5,6 +5,9 @@
 
 class QPrinter;
 
+// this class is a wrapper for QGraphicsScene that adds the
+// ability to export the scene to PDF
+
 class DiagramScene : public QGraphicsScene{
   Q_OBJECT
   public:

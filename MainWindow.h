@@ -15,6 +15,7 @@ class MainWindow : public QMainWindow {
   protected:
     void createGraphicsView();
     void createTopBar();
+    void createStatusBar();
 
     bool promptToSave();
 
